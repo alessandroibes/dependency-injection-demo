@@ -42,6 +42,12 @@ namespace DemoDI
 
             #endregion
 
+            #region [-- Generics --]
+
+            services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
+
+            #endregion
+
             services.AddControllersWithViews();
         }
 
