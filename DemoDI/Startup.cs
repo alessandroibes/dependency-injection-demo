@@ -1,3 +1,4 @@
+using DemoDI.Cases;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -18,6 +19,15 @@ namespace DemoDI
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            #region [-- VidaReal --]
+
+            // Injeção de dependência usando Microsoft.Extensions.DependencyInjection (nativo do .Net)
+            // Outros exemplos de containers IoC (https://www.palmmedia.de/blog/2011/8/30/ioc-container-benchmark-performance-comparison)
+            services.AddScoped<IClienteRepository, ClienteRepository>();
+            services.AddScoped<IClienteServices, ClienteServices>();
+
+            #endregion
+
             services.AddControllersWithViews();
         }
 
