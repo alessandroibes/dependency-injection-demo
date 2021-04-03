@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using System;
 
 namespace DemoDI
 {
@@ -25,6 +26,19 @@ namespace DemoDI
             // Outros exemplos de containers IoC (https://www.palmmedia.de/blog/2011/8/30/ioc-container-benchmark-performance-comparison)
             services.AddScoped<IClienteRepository, ClienteRepository>();
             services.AddScoped<IClienteServices, ClienteServices>();
+
+            #endregion
+
+            #region [-- Lifecycle --]
+
+            // AddTransient (Transitório): são criados cada vez que são usados pelo contêiner de serviço.
+            services.AddTransient<IOperacaoTransient, Operacao>();
+            // AddScoped (Com escopo): são criados a cada nova requisição do cliente (conexão).
+            services.AddScoped<IOperacaoScoped, Operacao>();
+            // AddSingleton: são criados na primeira vez que forem requisitados e cada requisição subsequente usa a mesma instância já criada.
+            services.AddSingleton<IOperacaoSingleton, Operacao>();
+            services.AddSingleton<IOperacaoSingletonInstance>(new Operacao(Guid.Empty));
+            services.AddTransient<OperacaoService>();
 
             #endregion
 
